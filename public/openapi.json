@@ -1,0 +1,306 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Simple text file compare app Api Documentation",
+      "description": "This app compare two text files for their differences and similarities https://textcompare.herokuapp.com ",
+      "termsOfService": "https://api-kidstories.herokuapp.com",
+      "contact": {
+        "email": "daudonmail@gmail.com"
+      },
+      "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      },
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8888/api/v1"
+      }
+    ],
+    "tags": [
+      {
+        "name": "compare",
+        "description": "Compare"
+      },
+      {
+        "name": "history",
+        "description": "History"
+      }
+    ],
+    "paths":{
+      "/compare":{
+        "post":{
+          "tags":[
+            "compare"
+          ],
+          "summary": "Compare two text files",
+          "description": "This is an endpoint compare two text files",
+          "requestBody": {
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                    "$ref": "#/components/schemas/ComparePostData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "created",
+              "content": {
+                "application/json":{
+                  "schema":{
+                      "properties":{
+                          "code":{
+                              "type":"integer",
+                              "example":201
+                          },
+                          "message":{
+                              "type":"string",
+                              "example":"Added"
+                          },
+                          "data":{
+                              "type":"array",
+                                "items":{
+                                    "$ref":"#/components/schemas/CompareDataResponse"
+                                }
+                          }
+                      }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/compare/{id}":{
+        "get":{
+          "tags":[
+            "compare"
+          ],
+          "summary": "get the stored result of two compare files ",
+          "description": "This is an endpoint get the stored result of two compare files",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "stored compare ID",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "get compare",
+              "content": {
+                "application/json":{
+                  "schema":{
+                      "properties":{
+                          "code":{
+                              "type":"integer",
+                              "example":200
+                          },
+                          "message":{
+                              "type":"string",
+                              "example":"ok"
+                          },
+                          "data":{
+                              "type":"array",
+                                "items":{
+                                    "$ref":"#/components/schemas/CompareDataResponse"
+                                }
+                          }
+                      }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put":{
+          "tags":[
+            "compare"
+          ],
+          "summary": "Re-compare the two stored files",
+          "description": "Re-compare the two stored files and get the result",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "stored compare ID",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "compare",
+              "content": {
+                "application/json":{
+                  "schema":{
+                      "properties":{
+                          "code":{
+                              "type":"integer",
+                              "example":200
+                          },
+                          "message":{
+                              "type":"string",
+                              "example":"ok"
+                          },
+                          "data":{
+                              "type":"array",
+                                "items":{
+                                    "$ref":"#/components/schemas/CompareDataResponse"
+                                }
+                          }
+                      }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/history":{
+        "get":{
+          "tags":[
+            "history"
+          ],
+          "summary": "get the list of prevoiusly compared files",
+          "description": "This is an endpoint to the list of prevoiusly compare files",
+          "responses": {
+            "200": {
+              "description": "compare",
+              "content": {
+                "application/json":{
+                  "schema":{
+                      "properties":{
+                          "code":{
+                              "type":"integer",
+                              "example":200
+                          },
+                          "message":{
+                              "type":"string",
+                              "example":"ok"
+                          },
+                          "data":{
+                              "type":"array",
+                                "items":{
+                                    "$ref":"#/components/schemas/HistoryDataResponse"
+                                }
+                          }
+                      }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components":{
+        "schemas":{
+          "ComparePostData": {
+            "type": "object",
+            "properties": {
+              "first_student": {
+                "type": "string"
+              },
+              "second_student": {
+                "type": "string"
+              },
+              "first_file":{
+                  "type":"string",
+                  "description":"First file",
+                  "format":"binary"
+              },
+              "second_file":{
+                  "type":"string",
+                  "description":"Second file",
+                  "format":"binary"
+              }
+            }
+          },
+          "CompareDataResponse":{
+            "type":"object",
+            "properties":{
+              "0":{
+                "type":"string"
+              },
+              "1":{
+                "type":"integer"
+              }
+            }
+          },
+          "HistoryDataResponse":{
+            "type":"object",
+            "properties":{
+              "current_page":{
+                "type":"integer"
+              },
+              "from":{
+                "type":"integer"
+              },
+              "last_page":{
+                "type":"integer"
+              },
+              "next_page_url":{
+                "type":"string"
+              },
+              "path":{
+                "type":"string"
+              },
+              "per_page":{
+                "type":"integer"
+              },
+              "prev_page_url":{
+                "type":"string"
+              },
+              "to":{
+                "type":"integer"
+              },
+              "total":{
+                "type":"integer"
+              },
+              "data":{
+                "type":"array",
+                "items":{
+                  "$ref":"#/components/schemas/HistoryDataItemResponse"
+                }
+              }
+            }
+          },
+          "HistoryDataItemResponse":{
+            "type":"object",
+            "properties":{
+              "id":{
+                "type":"integer"
+              },
+              "first_student":{
+                "type":"string"
+              },
+              "second_student":{
+                "type":"string"
+              },
+              "first_file":{
+                "type":"string"
+              },
+              "second_file":{
+                "type":"string"
+              },
+              "created_at":{
+                "type":"string"
+              },
+              "updated_at":{
+                "type":"string"
+              }
+            }
+          }
+        }
+    }
+}

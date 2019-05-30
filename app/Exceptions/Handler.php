@@ -46,6 +46,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {   
+        if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
+            return $this->jsonModelNotFoundExceptionHandler();
+        }
+
         if ($exception instanceof TokenMismatchException) {
             return $this->csrfTokenExpirationHandler($request);
         }
@@ -83,5 +87,14 @@ class Handler extends ExceptionHandler
             ->with([
                 'error' => 'Your form has expired. Please try again'
             ]);
+    }
+
+    protected function jsonModelNotFoundExceptionHandler()
+    {
+        return response()->json([
+            'error' => 'Resource not found',
+            'message' => 'Not found',
+            'code' => 404
+        ], 404);
     }
 }

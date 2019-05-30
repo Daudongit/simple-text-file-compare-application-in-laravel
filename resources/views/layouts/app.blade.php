@@ -45,10 +45,14 @@
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            {{-- <li><a href="{{ route('register') }}">Register</a></li> --}}
                         @else
-                            <li><a href="{{ route('login') }}">Compare</a></li>
-                            <li><a href="{{ route('login') }}">History</a></li>
+                            <li class="{{request()->fullUrlIs(route('compare.create'))?'active':''}}">
+                                <a href="{{ route('compare.create') }}">Compare</a>
+                            </li>
+                            <li class="{{request()->fullUrlIs(route('history.index'))?'active':''}}">
+                                <a href="{{ route('history.index') }}">History</a>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>

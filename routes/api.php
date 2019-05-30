@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::post('compare','CompareController@store');
+Route::get('compare/{compare}','CompareController@show');
+Route::put('compare/{compare}','CompareController@update');
+Route::get('history','HistoryController@index');

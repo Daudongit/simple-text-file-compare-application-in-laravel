@@ -14,35 +14,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function (Faker\Generator $faker) {
-    //dd(str_random());
-    //dd(implode('\n',explode('.',$faker->paragraph)));
-    $text = explode('.',$faker->paragraph(12));
-    array_pop($text);
-    //shuffle($text);
-    $text1 = $text;
-    shuffle($text);
-    shuffle($text);
-    $text2 = $text;
-    file_put_contents(public_path('file/file1.txt'),implode("\n",$text1));
-    file_put_contents(public_path('file/file2.txt'),implode("\n",$text2));
-    // $file = fopen(public_path("test.txt"),"x+");
-    // echo fwrite($file,"Hello World. Testing!");
-    // fclose($file);
-    dd('Check it out');
-    //return view('welcome');
+Auth::routes();
+Route::get('/',function () {
+    return redirect(route('login'));
 });
 
-Route::post('test',function(Request $request,CompareDiff $compare){
-    //dd($request->all());
-    //dd($compare->compareFiles($request->first_file,$request->second_file));
-    //dd(CompareDiff::toString(CompareDiff::compareFiles($request->first_file,$request->second_file)));
-    //dd(CompareDiff::toHTML(CompareDiff::compareFiles($request->first_file,$request->second_file)));
-    //dd(CompareDiff::toTable(CompareDiff::compareFiles($request->first_file,$request->second_file)));
-    $results = CompareDiff::toTableAndCount(CompareDiff::compareFiles($request->first_file,$request->second_file));
-    return view('home',compact('results'));
-})->name('test');
+Route::group(['middleware'=>'auth'],function(){
+    Route::get('compare','CompareController@create')->name('compare.create');
+    Route::post('compare','CompareController@store')->name('compare.store');
+    Route::get('compare/{compare}','CompareController@show')->name('compare.show');
+    Route::put('compare/{compare}','CompareController@update')->name('compare.update');
+    Route::get('history','HistoryController@index')->name('history.index');
+});
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
