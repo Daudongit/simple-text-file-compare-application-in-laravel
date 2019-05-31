@@ -3,7 +3,7 @@
     "info": {
       "title": "Simple text file compare app Api Documentation",
       "description": "This app compare two text files for their differences and similarities https://textcompare.herokuapp.com ",
-      "termsOfService": "https://herokuapp.com",
+      "termsOfService": "https://textfilecompare.herokuapp.com",
       "contact": {
         "email": "daudonmail@gmail.com"
       },
@@ -15,7 +15,7 @@
     },
     "servers": [
       {
-        "url": "http://localhost:8888/api/v1"
+        "url": "https://textfilecompare.herokuapp.com/api/v1"
       }
     ],
     "tags": [
