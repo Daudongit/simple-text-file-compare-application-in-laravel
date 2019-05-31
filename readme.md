@@ -1,8 +1,8 @@
-# A Simple RESTApi On Laravel5.4 With TDD and Auth
+# Simple text file compare application in laravel
 
 ## About this application
 
-A simple RESTApi sample on laravel5.4 with Test Driven Development and Token Authentication. <br>
+A simple application that compare two text file and to give differences and similarities <br>
 ##### Framework: Laravel 5.4
 ##### Language : PHP 5.6
 
@@ -20,8 +20,21 @@ composer install
 php artisan migrate --seed
 ```
 
+- Link storage folder to public:
+```
+php artisan storage:link
+```
+
 ## Online Demo
--
+https://textfilecompare.herokuapp.com
+- email:admin@mail.com
+- password:secret
+
+## Api documentation
+https://textfilecompare.herokuapp.com/doc/index.html
+
+
+
 
 
 # Contact me 
