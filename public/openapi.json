@@ -2,8 +2,8 @@
     "openapi": "3.0.1",
     "info": {
       "title": "Simple text file compare app Api Documentation",
-      "description": "This app compare two text files for their differences and similarities https://textcompare.herokuapp.com ",
-      "termsOfService": "https://api-kidstories.herokuapp.com",
+      "description": "This app compare two text files for their differences and similarities https://textfilecompare.herokuapp.com/api/v1 ",
+      "termsOfService": "https://textfilecompare.herokuapp.com",
       "contact": {
         "email": "daudonmail@gmail.com"
       },
